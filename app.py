@@ -96,8 +96,8 @@ st.markdown("""
         border: none !important;
         box-shadow: 0 8px 30px rgba(0,0,0,0.18) !important;
         transition: transform 0.12s ease-in-out !important;
-        margin: 20px auto !important;
         display: block !important;
+        width: 100% !important;
     }
     .stButton > button:active {
         transform: translateY(2px) scale(0.995) !important;
@@ -157,6 +157,11 @@ st.markdown("""
         justify-content: center !important;
         width: 100% !important;
     }
+    
+    /* Center the success message */
+    .stSuccess {
+        text-align: center !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -166,7 +171,7 @@ st.markdown('<div class="centered-container">', unsafe_allow_html=True)
 # Title
 st.markdown('<h1 class="birthday-title">HAPPY BIRTHDAY BABY !💖</h1>', unsafe_allow_html=True)
 
-# ANIMATED EMOJIS - NO EXTERNAL DEPENDENCIES, CUNT
+# ANIMATED EMOJIS
 st.markdown("""
 <div class="emoji-animation">
     <span class="bounce" style="animation-delay: 0s;">🎂</span>
@@ -194,14 +199,13 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Centered surprise button
-if st.button("click click for bday surprise!", key="surprise"):
-    st.balloons()
-    st.snow()
-
-    st.success("🎊 HAPPY BIRTHDAY BABY! 🎊")
-
-
+# PROPERLY CENTERED BUTTON USING STREAMLIT COLUMNS
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    if st.button("click click for bday surprise!", key="surprise"):
+        st.balloons()
+        st.snow()
+        st.success("🎊 HAPPY BIRTHDAY BABY! 🎊")
 
 # Footer with floating hearts
 st.markdown("""
