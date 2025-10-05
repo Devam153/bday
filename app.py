@@ -197,7 +197,6 @@ st.markdown(
 # Centered surprise button
 if st.button("click click for bday surprise!", key="surprise"):
     st.balloons()
-    time.sleep(0.5)
     st.snow()
 
     st.success("🎊 HAPPY BIRTHDAY BABY! 🎊")
