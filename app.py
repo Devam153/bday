@@ -202,7 +202,7 @@ st.markdown(
 # PROPERLY CENTERED BUTTON USING STREAMLIT COLUMNS
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    if st.button("click click for bday surprise", key="surprise"):
+    if st.button("click click for bday surprise"):
         st.balloons()
         st.snow()
         st.success("🎊 HAPPY BIRTHDAY BABY! 🎊")
