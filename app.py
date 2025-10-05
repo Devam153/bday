@@ -190,7 +190,7 @@ st.markdown(
         <div class="card-inner">
           <div class="card-side card-front">Tap to Open 💌</div>
           <div class="card-side card-back">
-            <p>HIIIIIIIIII I wish I could spend your day with you thoda sa and take you out, buy you actual flowers, pick you up and we have a great time together  but soon tho, youre so amazing, smart and pretty, hope you have a lovely day today princess!!!</p>
+            <p>HIIIIIIIIII I wish I could spend your day with you thoda sa buy you actual flowers, pick you up and take you out, but soon tho, youre so amazing, smart and pretty, hope you have a lovely day today princess!!!</p>
           </div>
         </div>
       </div>
@@ -202,7 +202,7 @@ st.markdown(
 # PROPERLY CENTERED BUTTON USING STREAMLIT COLUMNS
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
-    if st.button("click click for bday surprise"):
+    if st.button("click click for bday surprise", key="surprise"):
         st.balloons()
         st.snow()
         st.success("🎊 HAPPY BIRTHDAY BABY! 🎊")
