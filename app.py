@@ -90,6 +90,7 @@ st.markdown("""
     .stButton > button {
         font-size: 1.9rem !important;
         padding: 18px 42px !important;
+        margin-left: 14px;
         border-radius: 14px !important;
         background: linear-gradient(90deg,#ff8ab8,#ffd86b) !important;
         color: #ffffff !important;
