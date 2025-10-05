@@ -1,12 +1,23 @@
 import streamlit as st
-import time
+import requests
+from streamlit_lottie import st_lottie
 
 # Page configuration
 st.set_page_config(
     page_title="Happy Birthday My Love!",
     page_icon="🎂",
-    layout="centered"
+    layout="centered"  # Changed to centered layout
 )
+
+# Load Lottie animation from URL
+def load_lottieurl(url: str):
+    try:
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
+    except:
+        return None
 
 # Custom CSS for animations + centered everything
 st.markdown("""
@@ -46,14 +57,6 @@ st.markdown("""
         75% { 
             transform: translateY(-2px) rotate(0.3deg) scale(1.015); 
         }
-    }
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-    }
-    @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
     }
 
     .birthday-title {
@@ -139,15 +142,12 @@ st.markdown("""
     .card-back h2 { margin:0; font-size:1.8rem; }
     .card-back p { margin-top:8px; font-size:1.05rem; }
 
-    /* Animated emojis */
-    .emoji-animation {
-        font-size: 80px;
-        text-align: center;
-        margin: 20px 0;
+    /* Center Lottie animations */
+    .lottie-container {
+        display: flex !important;
+        justify-content: center !important;
+        margin: 1rem auto !important;
     }
-    .bounce { animation: bounce 2s infinite; }
-    .rotate { animation: rotate 3s linear infinite; }
-    .pulse { animation: pulse 1.5s infinite; }
     
     /* footer hearts spacing */
     .footer-hearts { 
@@ -164,18 +164,18 @@ st.markdown("""
 st.markdown('<div class="centered-container">', unsafe_allow_html=True)
 
 # Title
-st.markdown('<h1 class="birthday-title">HAPPY BIRTHDAY BABY !💖</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="birthday-title">🎉 HAPPY BIRTHDAY BABY 💖</h1>', unsafe_allow_html=True)
 
-# ANIMATED EMOJIS - NO EXTERNAL DEPENDENCIES, CUNT
-st.markdown("""
-<div class="emoji-animation">
-    <span class="bounce" style="animation-delay: 0s;">🎂</span>
-    <span class="rotate" style="animation-delay: 0.2s;">🌸</span>
-    <span class="bounce" style="animation-delay: 0.4s;">💐</span>
-    <span class="pulse" style="animation-delay: 0.6s;">🐱</span>
-    <span class="bounce" style="animation-delay: 0.8s;">🎁</span>
-</div>
-""", unsafe_allow_html=True)
+# Rose animation - centered
+st.markdown('<div class="lottie-container">', unsafe_allow_html=True)
+lottie_rose = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_0nLkdf.json")
+if lottie_rose:
+    st_lottie(lottie_rose, speed=1, height=220, key="rose")
+else:
+    st.error("❌ Rose animation failed to load - but the website still works!")
+    # Fallback rose emoji
+    st.markdown("<h2 style='text-align: center;'>🌹</h2>", unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
 # Card
 st.markdown(
@@ -185,7 +185,7 @@ st.markdown(
         <div class="card-inner">
           <div class="card-side card-front">Tap to Open 💌</div>
           <div class="card-side card-back">
-            <p>HIIIIIIIIII I wish I could spend your day with you thoda sa and take you out, buy you actual flowers, pick you up and we have a great time together  but soon tho, youre so amazing, smart and pretty, hope you have a lovely day today princess!!!</p>
+            <p>Hope you have a lovely day today, I wish i could spend your day with you thoda sa and take you out, but soon tho, youre so amazing,s amrt and pretty, and have a blast princess!!!</p>
           </div>
         </div>
       </div>
@@ -195,14 +195,20 @@ st.markdown(
 )
 
 # Centered surprise button
-if st.button("click click for bday surprise!", key="surprise"):
+if st.button("🎉 Click for Birthday Surprise!", key="surprise"):
     st.balloons()
     st.snow()
+    # Confetti animation
+    lottie_confetti = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_6cftgagt.json")
+    if lottie_confetti:
+        st_lottie(lottie_confetti, speed=1, height=200, key="confetti")
 
-    
-    st.success("🎊 HAPPY BIRTHDAY BABY! 🎊")
-
-
+# Sparkles animation
+lottie_sparkles = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_6m7kqzaf.json")
+if lottie_sparkles:
+    st.markdown('<div class="lottie-container">', unsafe_allow_html=True)
+    st_lottie(lottie_sparkles, speed=1, height=120, key="sparkles")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # Footer with floating hearts
 st.markdown("""
@@ -215,4 +221,4 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('</div>', unsafe_allow_html=True)  # Close centered container
+st.markdown('</div>', unsafe_allow_html=True)  
