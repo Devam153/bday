@@ -6,19 +6,30 @@ from streamlit_lottie import st_lottie
 st.set_page_config(
     page_title="Happy Birthday My Love!",
     page_icon="🎂",
-    layout="wide"
+    layout="centered"  # Changed to centered layout
 )
 
 # Load Lottie animation from URL
 def load_lottieurl(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
+    try:
+        r = requests.get(url)
+        if r.status_code != 200:
+            return None
+        return r.json()
+    except:
         return None
-    return r.json()
 
-# Custom CSS for animations + bigger centered surprise button + card flip
+# Custom CSS for animations + centered everything
 st.markdown("""
 <style>
+    .main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
@@ -55,12 +66,11 @@ st.markdown("""
         -webkit-text-fill-color: transparent;
         animation: fadeIn 1.2s ease-out, pulse 2.5s infinite, gentleWave 4s ease-in-out infinite;
         text-align: center;
-        margin-bottom: 2rem;
+        margin: 2rem auto;
         font-family: 'Brush Script MT', cursive;
         text-shadow: 3px 3px 8px rgba(0,0,0,0.15);
-        position: relative;
-        display: inline-block;
-        transform-origin: center;
+        display: block;
+        width: 100%;
     }
     .heart {
         color: #FF6B6B;
@@ -68,13 +78,15 @@ st.markdown("""
         display: inline-block;
         margin: 0 10px;
     }
-    .message {
-        animation: fadeIn 1.6s ease-out;
-        padding: 20px;
-        border-radius: 15px;
-        background: rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(6px);
-        margin: 20px 0;
+
+    /* Center everything */
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        text-align: center;
     }
 
     /* Big centered surprise button styling */
@@ -87,21 +99,23 @@ st.markdown("""
         border: none !important;
         box-shadow: 0 8px 30px rgba(0,0,0,0.18) !important;
         transition: transform 0.12s ease-in-out !important;
+        margin: 20px auto !important;
+        display: block !important;
     }
     .stButton > button:active {
         transform: translateY(2px) scale(0.995) !important;
     }
-    .center-btn {
-        display:flex; justify-content:center; margin-top:10px; margin-bottom:16px;
-    }
 
-    /* Card flip animation (opens automatically) */
-    .card-wrap { display:flex; justify-content:center; }
+    /* Card flip animation */
+    .card-wrap { 
+        display: flex !important; 
+        justify-content: center !important; 
+        margin: 2rem auto !important;
+    }
     .card {
         width: 380px;
         height: 220px;
         perspective: 1200px;
-        position: relative;
     }
     .card-inner {
         width:100%; height:100%; position:relative; transform-style: preserve-3d;
@@ -123,62 +137,78 @@ st.markdown("""
         background: linear-gradient(135deg,#ffffff,#fff6e6);
         transform: rotateY(180deg);
         color:#333;
-        flex-direction:column; text-align:center; padding:18px; box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        flex-direction:column; text-align:center; padding:18px; 
     }
     .card-back h2 { margin:0; font-size:1.8rem; }
     .card-back p { margin-top:8px; font-size:1.05rem; }
 
+    /* Center Lottie animations */
+    .lottie-container {
+        display: flex !important;
+        justify-content: center !important;
+        margin: 1rem auto !important;
+    }
+    
     /* footer hearts spacing */
-    .footer-hearts { text-align:center; margin-top:50px; }
+    .footer-hearts { 
+        text-align:center !important; 
+        margin-top:50px !important;
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
-# Main content
-st.markdown('<h1 class="birthday-title">🎉 Happy Birthday My Love! 💖</h1>', unsafe_allow_html=True)
+# Main content - Everything centered
+st.markdown('<div class="centered-container">', unsafe_allow_html=True)
 
-# Create columns for layout
-col1, col2, col3 = st.columns([1, 2, 1])
+# Title
+st.markdown('<h1 class="birthday-title">🎉 HAPPY BIRTHDAY BABY 💖</h1>', unsafe_allow_html=True)
 
-with col2:
-    # Load and display ROSE animation instead of rocket
-    lottie_rose = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_0nLkdf.json")
-    lottie_confetti = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_6cftgagt.json")
-    lottie_sparkles = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_6m7kqzaf.json")
-    
-    if lottie_rose:
-        st_lottie(lottie_rose, speed=1, height=220, key="rose")
+# Rose animation - centered
+st.markdown('<div class="lottie-container">', unsafe_allow_html=True)
+lottie_rose = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_0nLkdf.json")
+if lottie_rose:
+    st_lottie(lottie_rose, speed=1, height=220, key="rose")
+else:
+    st.error("❌ Rose animation failed to load - but the website still works!")
+    # Fallback rose emoji
+    st.markdown("<h2 style='text-align: center;'>🌹</h2>", unsafe_allow_html=True)
+st.markdown('</div>', unsafe_allow_html=True)
 
-    # Sweet card that "opens" automatically revealing the message
-    st.markdown(
-        f"""
-        <div class="card-wrap">
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-side card-front">Tap to Open 💌</div>
-              <div class="card-side card-back">
-                <h2>Happy Birthday, My Love!</h2>
-                <p>May today be full of small moments that make you smile — just like you make me smile every day.</p>
-              </div>
-            </div>
+# Card
+st.markdown(
+    """
+    <div class="card-wrap">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-side card-front">Tap to Open 💌</div>
+          <div class="card-side card-back">
+            <p>Hope you have a lovely day today, I wish i could spend your day with you thoda sa and take you out, but soon tho, youre so amazing,s amrt and pretty, and have a blast princess!!!</p>
           </div>
         </div>
-        """,
-        unsafe_allow_html=True,
-    )
+      </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
-    # Centered big surprise button
-    st.markdown('<div class="center-btn">', unsafe_allow_html=True)
-    if st.button("🎉 Click for Birthday Surprise!", key="surprise"):
-        st.balloons()
-        st.snow()
-        # an extra gentle confetti-like effect via Lottie when available
-        if lottie_confetti:
-            st_lottie(lottie_confetti, speed=1, height=220, key="confetti-popup")
+# Centered surprise button
+if st.button("🎉 Click for Birthday Surprise!", key="surprise"):
+    st.balloons()
+    st.snow()
+    # Confetti animation
+    lottie_confetti = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_6cftgagt.json")
+    if lottie_confetti:
+        st_lottie(lottie_confetti, speed=1, height=200, key="confetti")
+
+# Sparkles animation
+lottie_sparkles = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_6m7kqzaf.json")
+if lottie_sparkles:
+    st.markdown('<div class="lottie-container">', unsafe_allow_html=True)
+    st_lottie(lottie_sparkles, speed=1, height=120, key="sparkles")
     st.markdown('</div>', unsafe_allow_html=True)
-
-    # sparkles Lottie after the button (optional)
-    if lottie_sparkles:
-        st_lottie(lottie_sparkles, speed=1, height=140, key="sparkles")
 
 # Footer with floating hearts
 st.markdown("""
@@ -190,3 +220,5 @@ st.markdown("""
     <span class="heart" style="animation-delay: 2s">💖</span>
 </div>
 """, unsafe_allow_html=True)
+
+st.markdown('</div>', unsafe_allow_html=True)  
