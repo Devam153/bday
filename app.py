@@ -190,7 +190,7 @@ st.markdown(
         <div class="card-inner">
           <div class="card-side card-front">Tap to Open 💌</div>
           <div class="card-side card-back">
-            <p>HIIIIIIIIII I wish I could spend your day with you thoda sa buy you actual flowers, pick you up and take you out, but soon tho, youre so amazing, smart and pretty, hope you have a lovely day today princess!!!</p>
+            <p>HIIIIIIIIII I wish I could spend your day with you thoda sa buy you actual flowers, pick you up and take you out, but soon tho, youre so amazing, smart and beautiful, hope you have a lovely day princess!!!</p>
           </div>
         </div>
       </div>
