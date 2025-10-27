@@ -90,7 +90,7 @@ st.markdown("""
     .stButton > button {
         font-size: 1.9rem !important;
         padding: 18px 42px !important;
-        margin-left: 14px;
+        margin-left: 24px;
         border-radius: 14px !important;
         background: linear-gradient(90deg,#ff8ab8,#ffd86b) !important;
         color: #ffffff !important;
@@ -166,13 +166,10 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Main content - Everything centered
 st.markdown('<div class="centered-container">', unsafe_allow_html=True)
 
-# Title
 st.markdown('<h1 class="birthday-title">HAPPY BIRTHDAY BABY !💖</h1>', unsafe_allow_html=True)
 
-# ANIMATED EMOJIS
 st.markdown("""
 <div class="emoji-animation">
     <span class="bounce" style="animation-delay: 0s;">🎂</span>
