@@ -203,7 +203,7 @@ with col2:
     if st.button("click click for bday surprise", key="surprise"):
         st.balloons()
         st.snow()
-        st.success("🎊 HAPPY BIRTHDAY BABY! 🎊")
+        st.success("🎊 HAPPY BIRTHDAY! 🎊")
 
 # Footer with floating hearts
 st.markdown("""
